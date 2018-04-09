@@ -1,0 +1,23 @@
+# Instruct Shiny Server to run applications as the user "shiny"
+run_as <%= @srv_run_as %>;
+
+# Define a server that listens on port <%= @srv_listen_port %>
+server {
+  listen <%= @srv_listen_port %>;
+  server_name localhost;
+  run_as <%= @srv_run_as %>;
+
+  # Define a location at the base URL
+  location / {
+
+    # Host the directory of Shiny Apps stored in this directory
+    site_dir <%= @srv_site_dir %>;
+
+    # Log all Shiny output to files in this directory
+    log_dir <%= @srv_log_dir %>;
+
+    # When a user visits the base URL rather than a particular application,
+    # an index of the applications available in this directory will be shown.
+    directory_index <%= @srv_directory_index %>;
+  }
+}
